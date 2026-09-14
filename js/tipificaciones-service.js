@@ -65,6 +65,172 @@ export function normalizarTexto(texto = "") {
         .toLowerCase();
 }
 
+// =====================================================
+// CANONIZACIÓN DEL CATÁLOGO
+// Unifica diferencias de escritura sin modificar
+// la tipificación original almacenada.
+// =====================================================
+
+const ALIAS_CATALOGO = {
+
+    plantilla: {
+
+        // Mismo concepto escrito de distintas formas
+        "persona": "PERSONA",
+        "personas": "PERSONA",
+
+        "canalizacion": "CANALIZACION",
+
+        "canal digital": "CANAL DIGITAL",
+
+        "cuenta": "CUENTA",
+
+        "tpv": "TPV"
+
+    },
+
+
+    operacional1: {
+
+        "asesoria usuario": "ASESORIA USUARIO",
+        "asesoría usuario": "ASESORIA USUARIO",
+
+        "aplicacion": "APLICACION",
+        "aplicación": "APLICACION",
+
+        "aplicativo": "APLICATIVO",
+
+        "seguridad": "SEGURIDAD",
+
+        "infraestructura": "INFRAESTRUCTURA",
+
+        "direccionamiento": "DIRECCIONAMIENTO"
+
+    },
+
+
+    operacional2: {
+
+        "base de datos": "BASE DE DATOS",
+
+        "no acceso": "NO ACCESO",
+
+        "subproceso": "SUBPROCESO",
+
+        "credenciales de usuario": "CREDENCIALES DE USUARIO",
+
+        "cancelacion": "CANCELACION",
+        "cancelación": "CANCELACION",
+
+        "contratacion": "CONTRATACION",
+        "contratación": "CONTRATACION",
+
+        "mantenimiento": "MANTENIMIENTO",
+
+        "dispositivo": "DISPOSITIVO",
+
+        "formulario": "FORMULARIO",
+
+        "dar": "DAR",
+
+        // DAR/JAN se conserva separado por ahora,
+        // porque puede representar una ruta distinta.
+        "dar/jan": "DAR/JAN",
+
+        "t&c": "T&C",
+
+        "frente de sistemas": "FRENTE DE SISTEMAS",
+
+        "soporte celulares": "SOPORTE CELULARES",
+
+        "buzon funcional": "BUZON FUNCIONAL",
+        "buzón funcional": "BUZON FUNCIONAL"
+
+    },
+
+
+    operacional3: {
+
+        "curp": "CURP",
+
+        "rfc": "RFC",
+
+        "correo": "CORREO",
+
+        "nombre": "NOMBRE",
+
+        "telefono": "TELEFONO",
+        "teléfono": "TELEFONO",
+
+        "degradacion": "DEGRADACION",
+        "degradación": "DEGRADACION",
+
+        "impresion": "IMPRESION",
+        "impresión": "IMPRESION",
+
+        "sesion atrapada": "SESION ATRAPADA",
+        "sesión atrapada": "SESION ATRAPADA",
+
+        "no apertura aplicativo": "NO APERTURA APLICATIVO",
+
+        "no reconoce claves de usuario":
+            "NO RECONOCE CLAVES DE USUARIO",
+
+        "facultades": "FACULTADES",
+
+        "requerimiento pmo": "REQUERIMIENTO PMO",
+
+        "apertura logica de sucursal":
+            "APERTURA LOGICA DE SUCURSAL",
+
+        "apertura lógica de sucursal":
+            "APERTURA LOGICA DE SUCURSAL",
+
+        "alta de incidencia":
+            "ALTA DE INCIDENCIA",
+
+        "configuracion": "CONFIGURACION",
+        "configuración": "CONFIGURACION"
+
+    }
+
+};
+
+
+/**
+ * Devuelve el nombre estándar que verá el asesor.
+ *
+ * IMPORTANTE:
+ * No modifica el JSON original.
+ */
+export function canonicalizarValor(campo, valor = "") {
+
+    const textoOriginal =
+        String(valor || "").trim();
+
+    if (!textoOriginal) {
+        return "";
+    }
+
+
+    const clave =
+        normalizarTexto(textoOriginal);
+
+
+    const aliases =
+        ALIAS_CATALOGO[campo] || {};
+
+
+    if (aliases[clave]) {
+        return aliases[clave];
+    }
+
+
+    // Si no existe alias, conserva el valor original
+    // pero limpia espacios innecesarios.
+    return textoOriginal;
+}
+
 
 /**
  * Obtiene valores únicos de cualquier campo.
