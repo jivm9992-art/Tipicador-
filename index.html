@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Consulta de tipificaciones para asesores"
+    >
+
+    <title>Tipifica+ | Consulta de Tipificaciones</title>
+
+    <link
+        rel="stylesheet"
+        href="./css/styles.css"
+    >
+</head>
+
+
+<body>
+
+    <!-- ==========================================
+         ENCABEZADO
+    =========================================== -->
+
+    <header class="topbar">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                T+
+            </div>
+
+            <div>
+                <h1>Tipifica+</h1>
+                <p>Asistente de tipificaciones</p>
+            </div>
+
+        </div>
+
+
+        <div class="status">
+
+            <span class="status-dot"></span>
+
+            Catálogo disponible
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ==========================================
+         CONTENIDO PRINCIPAL
+    =========================================== -->
+
+    <main class="main-container">
+
+
+        <!-- ======================================
+             BIENVENIDA
+        ======================================= -->
+
+        <section class="hero">
+
+            <div>
+
+                <span class="eyebrow">
+                    HERRAMIENTA DE CONSULTA
+                </span>
+
+                <h2>
+                    ¿Cómo necesitas tipificar la llamada?
+                </h2>
+
+                <p>
+                    Puedes localizar la tipificación mediante la botonera
+                    o describiendo directamente el caso que reporta el usuario.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ======================================
+             MODOS DE CONSULTA
+        ======================================= -->
+
+        <div class="mode-selector">
+
+            <button
+                class="mode-button active"
+                data-mode="buttons"
+                type="button"
+            >
+                <span>▦</span>
+                Buscar por categorías
+            </button>
+
+
+            <button
+                class="mode-button"
+                data-mode="chat"
+                type="button"
+            >
+                <span>✦</span>
+                Consultar por mensaje
+            </button>
+
+        </div>
+
+
+
+        <!-- ======================================
+             BOTONERA
+        ======================================= -->
+
+        <section
+            id="buttonsMode"
+            class="search-section active"
+        >
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="step-label">
+                        CONSULTA GUIADA
+                    </span>
+
+                    <h3>
+                        Selecciona las opciones
+                    </h3>
+
+                </div>
+
+
+                <button
+                    id="resetButton"
+                    class="secondary-button hidden"
+                    type="button"
+                >
+                    Reiniciar
+                </button>
+
+            </div>
+
+
+
+            <!-- RUTA ACTUAL -->
+
+            <div
+                id="currentRoute"
+                class="current-route hidden"
+            >
+
+                <span class="route-title">
+                    Ruta seleccionada
+                </span>
+
+                <div
+                    id="routeChips"
+                    class="route-chips"
+                ></div>
+
+            </div>
+
+
+
+            <!-- PREGUNTA DINÁMICA -->
+
+            <div class="wizard-card">
+
+                <div class="wizard-header">
+
+                    <div
+                        id="stepNumber"
+                        class="step-number"
+                    >
+                        1
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Selección actual
+                        </span>
+
+                        <h4 id="wizardQuestion">
+                            Cargando catálogo...
+                        </h4>
+
+                    </div>
+
+                </div>
+
+
+
+                <div
+                    id="wizardOptions"
+                    class="button-grid"
+                ></div>
+
+
+                <div
+                    id="wizardEmpty"
+                    class="empty-state hidden"
+                >
+
+                    <strong>
+                        No hay opciones disponibles.
+                    </strong>
+
+                    <p>
+                        Revisa la selección anterior o reinicia la consulta.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- RESULTADO BOTONERA -->
+
+            <div
+                id="wizardResults"
+                class="results-container"
+            ></div>
+
+        </section>
+
+
+
+        <!-- ======================================
+             CHAT
+        ======================================= -->
+
+        <section
+            id="chatMode"
+            class="search-section"
+        >
+
+            <div class="chat-layout">
+
+
+                <!-- CHAT -->
+
+                <div class="chat-card">
+
+                    <div class="chat-header">
+
+                        <div class="assistant-avatar">
+                            T+
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                Asistente de tipificaciones
+                            </h3>
+
+                            <p>
+                                Describe brevemente el motivo de la llamada.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div
+                        id="chatMessages"
+                        class="chat-messages"
+                    >
+
+                        <div class="message assistant-message">
+
+                            <div class="message-avatar">
+                                T+
+                            </div>
+
+                            <div class="message-bubble">
+
+                                <p>
+                                    Hola. Describe el caso que está
+                                    reportando el usuario y buscaré la
+                                    tipificación más relacionada.
+                                </p>
+
+                                <div class="example-prompts">
+
+                                    <button
+                                        type="button"
+                                        class="example-prompt"
+                                    >
+                                        No puede entrar a TF y dice que ya está logueado
+                                    </button>
+
+
+                                    <button
+                                        type="button"
+                                        class="example-prompt"
+                                    >
+                                        Necesito actualizar el RFC del cliente
+                                    </button>
+
+
+                                    <button
+                                        type="button"
+                                        class="example-prompt"
+                                    >
+                                        El CR está cerrado en QG94
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <form
+                        id="chatForm"
+                        class="chat-input-container"
+                    >
+
+                        <textarea
+                            id="chatInput"
+                            rows="2"
+                            maxlength="500"
+                            placeholder="Ejemplo: El ejecutivo no puede entrar a Terminal Financiero porque aparece que ya está logueado..."
+                        ></textarea>
+
+
+                        <button
+                            id="sendButton"
+                            class="send-button"
+                            type="submit"
+                        >
+                            Consultar
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <!-- CONSEJOS -->
+
+                <aside class="tips-card">
+
+                    <span class="step-label">
+                        RECOMENDACIÓN
+                    </span>
+
+                    <h3>
+                        Entre más información, mejor resultado
+                    </h3>
+
+                    <p>
+                        Cuando hagas una consulta intenta mencionar:
+                    </p>
+
+
+                    <div class="tip-item">
+
+                        <span>01</span>
+
+                        <div>
+                            <strong>Aplicativo</strong>
+                            <p>
+                                TF, EECC, Windows, Emulación, etc.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="tip-item">
+
+                        <span>02</span>
+
+                        <div>
+                            <strong>Error</strong>
+                            <p>
+                                El mensaje que aparece en pantalla.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="tip-item">
+
+                        <span>03</span>
+
+                        <div>
+                            <strong>Solicitud</strong>
+                            <p>
+                                Qué necesita realizar el usuario.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </aside>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ==========================================
+         MODAL DE DETALLE
+    =========================================== -->
+
+    <div
+        id="detailModal"
+        class="modal hidden"
+    >
+
+        <div class="modal-backdrop"></div>
+
+
+        <div class="modal-card">
+
+            <div class="modal-header">
+
+                <div>
+
+                    <span class="step-label">
+                        DETALLE
+                    </span>
+
+                    <h3 id="modalTitle">
+                        Tipificación
+                    </h3>
+
+                </div>
+
+
+                <button
+                    id="closeModal"
+                    class="close-button"
+                    type="button"
+                    aria-label="Cerrar"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <div
+                id="modalContent"
+                class="modal-content"
+            ></div>
+
+        </div>
+
+    </div>
+
+
+
+    <script
+        type="module"
+        src="./js/app.js"
+    ></script>
+
+</body>
+
+</html>
