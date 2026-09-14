@@ -10,7 +10,7 @@ let TIPIFICACIONES = [];
  */
 export async function cargarTipificaciones() {
     try {
-        const respuesta = await fetch("./data/tipificaciones.json", {
+        const respuesta = await fetch("./tipificaciones.json", {
             cache: "no-store"
         });
 
